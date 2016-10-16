@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project version="2">
+  <!-- Output SWF options -->
+  <output>
+    <movie outputType="Application" />
+    <movie input="" />
+    <movie path="Project.xml" />
+    <movie fps="60" />
+    <movie width="1920" />
+    <movie height="1080" />
+    <movie version="3" />
+    <movie minorVersion="0" />
+    <movie platform="NME" />
+    <movie background="000000" />
+  </output>
+  <!-- Other classes to be compiled into your SWF -->
+  <classpaths>
+    <class path="E:\HaxeToolkit\haxe\lib\flixel\4,1,0" />
+    <class path="E:\HaxeToolkit\haxe\lib\openfl\3,6,1" />
+    <class path="E:\HaxeToolkit\haxe\lib\lime\2,9,1" />
+    <class path="E:\HaxeToolkit\haxe\lib\hscript\2,0,7" />
+    <class path="E:\HaxeToolkit\haxe\lib\flixel-addons\2,1,0" />
+    <class path="E:\HaxeToolkit\haxe\lib\assetsmanager\1,2,0" />
+    <class path="E:\HaxeToolkit\haxe\lib\msignal\1,2,4" />
+    <class path="E:\HaxeToolkit\haxe\lib\mlib\2,0,2" />
+    <class path="source" />
+    <class path="E:\HaxeToolkit\haxe\lib\openfl\3,6,1\extern" />
+    <class path="export\flash\haxe" />
+  </classpaths>
+  <!-- Build options -->
+  <build>
+    <option directives="flixel=4.1.0&#xA;openfl=3.6.1&#xA;lime=2.9.1&#xA;hscript=2.0.7&#xA;flixel-addons=2.1.0&#xA;assetsmanager=1.2.0&#xA;msignal=1.2.4&#xA;mlib=2.0.2&#xA;HXCPP_QUIET&#xA;openfl-next&#xA;tools=2.9.1&#xA;FLX_NO_DEBUG&#xA;no-compilation&#xA;NAPE_RELEASE_BUILD&#xA;openfl-flash&#xA;web&#xA;display" />
+    <option flashStrict="False" />
+    <option mainClass="ApplicationMain" />
+    <option enabledebug="False" />
+    <option additional="--macro keep('IntIterator')&#xA;--macro flixel.system.macros.FlxDefines.run()&#xA;-swf-version 11.8" />
+  </build>
+  <!-- haxelib libraries -->
+  <haxelib>
+    <!-- example: <library name="..." /> -->
+  </haxelib>
+  <!-- Class files to compile (other referenced classes will automatically be included) -->
+  <compileTargets>
+    <compile path="source\Main.hx" />
+  </compileTargets>
+  <!-- Assets to embed into the output SWF -->
+  <library>
+    <!-- example: <asset path="..." id="..." update="..." glyphs="..." mode="..." place="..." sharepoint="..." /> -->
+  </library>
+  <!-- Paths to exclude from the Project Explorer tree -->
+  <hiddenPaths>
+    <hidden path="obj" />
+  </hiddenPaths>
+  <!-- Executed before build -->
+  <preBuildCommand />
+  <!-- Executed after build -->
+  <postBuildCommand alwaysRun="False" />
+  <!-- Other project options -->
+  <options>
+    <option showHiddenPaths="False" />
+    <option testMovie="Custom" />
+    <option testMovieCommand="" />
+  </options>
+  <!-- Plugin storage -->
+  <storage />
+</project>
