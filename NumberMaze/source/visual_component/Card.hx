@@ -350,7 +350,7 @@ class Card extends FlxTypedGroup<FlxSprite>
 		}
 		if ( type == 1)
 		{
-		  card.loadGraphic(AssetPaths.rock__png);
+		  card.loadGraphic(AssetPaths.Mark__png);
 		  arr.push(-1);
 		  arr.push(-1);
 		  return [ -1, -1];// arr;

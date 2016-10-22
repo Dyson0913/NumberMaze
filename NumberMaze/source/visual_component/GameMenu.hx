@@ -4,6 +4,7 @@ package visual_component;
  * ...
  * @author hhg4092
  */
+import flash.geom.Point;
 import flash.text.Font;
 import flash.text.TextFormat;
 import flixel.addons.transition.TransitionData;
@@ -19,6 +20,7 @@ import option.CharSelectState;
 import option.CreditState;
 
 import model.Model;
+import model.RegularSetting;
 import flixel.addons.transition.Transition;
 import model.FileStream;
 
@@ -26,9 +28,7 @@ class GameMenu extends FlxTypedGroup<FlxSprite>
 {
 	private var _bg:FlxSprite;
 	
-	private var _singleplayer:FlxButton;
-	private var _multiplayer:FlxButton;
-	private var _credit:FlxButton;
+	public var _arr:Array<FlxButton> = new Array<FlxButton>();
 	
 	private var _text:FlxText;
 	#if (flash )
@@ -42,25 +42,24 @@ class GameMenu extends FlxTypedGroup<FlxSprite>
 		add(_bg);
 		
 		
-		_singleplayer = new FlxButton( 330  ,760, "quickplay", singlplayer);
-		_multiplayer = new FlxButton( 840  , 760, "changelle", multiplayer);
-		_credit = new FlxButton( 1310 , 760, "credit", credit);
+		var name:Array<String> = new Array<String>();
+		var func:Array<Void->Void> = new Array<Void->Void>();
+		name = ["singlePlay", "Multiplay", "Credit"];
+		func = [singlplayer, multiplayer,credit];
+		for (i in 0...(3))
+		{
+			var p:Point = RegularSetting.col_position(i, 3);
+			
+			var x:Float = 300 + (p.x * 300);		
+			var y:Float = 300 + (p.y * 80);
+			
+			var btn:FlxButton = create_flxbut(x, y, name[i], func[i]);
+			btn.loadGraphic(AssetPaths.MenuButton__png,true,260,74);
+			btn.animation.frameIndex = 0;
+			Model.font_format(btn.label, 35);
+			add(btn);
+		}
 		
-		_singleplayer.loadGraphic(AssetPaths.MenuButton__png);
-		Model.font_format(_singleplayer.label, 35);
-		_singleplayer.scale.set(1.5, 1.5);
-		
-		_multiplayer.loadGraphic(AssetPaths.MenuButton__png);
-		_multiplayer.scale.set(1.5, 1.5);
-		Model.font_format(_multiplayer.label, 35);
-		
-		_credit.loadGraphic(AssetPaths.MenuButton__png);
-		_credit.scale.set(1.5, 1.5);
-		Model.font_format(_credit.label, 35);
-		
-		add(_singleplayer);
-		add(_multiplayer);
-		add(_credit);
 
 		//#if mobile
 			//_text = new FlxText(20, 20,500, "1234567890AbCdEfGh 看看：中文显示是否正常！m(^_*)$", 8, true);
@@ -81,6 +80,11 @@ class GameMenu extends FlxTypedGroup<FlxSprite>
 		#end
 		
 		//Main._model.adjust_item.dispatch(_credit);
+	}
+	
+	private function create_flxbut(x:Float,y:Float ,Name:String,_callback:Void->Void):FlxButton
+	{
+		return new FlxButton(x, y, Name, _callback);
 	}
 	
 	private function appear(s:Dynamic):Void
