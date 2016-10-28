@@ -49,8 +49,7 @@ class Card extends FlxTypedGroup<FlxSprite>
 	private var _green_total:Int;
 	private	var _blue_total:Int;
 	
-	private var _mymark:FlxSprite;
-	private var _AImark:FlxSprite;
+	public var effect_group:Array<FlxSprite> = new Array<FlxSprite>();
 	
 	public function new() 
 	{
@@ -90,6 +89,7 @@ class Card extends FlxTypedGroup<FlxSprite>
 			group.add(item);
 			_arr.push(item);
 			//RegularSetting.set_debug(item);
+			
 		}
 		
 		//event
@@ -102,13 +102,6 @@ class Card extends FlxTypedGroup<FlxSprite>
 		Main._model.TurnOverNotify.add(turnOver);
 		//Main._model.adjust_item.dispatch(_poker_mi_Target);
 		
-		_mymark = new FlxSprite(-200, -200);
-		_mymark.loadGraphic(AssetPaths.mark128_3__png);
-		add(_mymark);
-		
-		_AImark = new FlxSprite( -200, -200);
-		_AImark.loadGraphic(AssetPaths.mark128_4__png);
-		add(_AImark);
 	}
 	
 	private function turnOver(s:Dynamic):Void
@@ -119,9 +112,7 @@ class Card extends FlxTypedGroup<FlxSprite>
 			_side = s[1];
 			if ( _side == 1) 
 			{
-				FlxG.log.add("---------------- right AI run");
 				_AI_pick = Math.ceil(Math.random() * _unpick.length);
-				FlxG.log.add("---------------- right pick "+_AI_pick);
 				while (_color[_AI_pick] != -1)
 				{
 					_AI_pick = Math.ceil(Math.random() * _unpick.length);
@@ -159,8 +150,6 @@ class Card extends FlxTypedGroup<FlxSprite>
 	#if mobile
 	override public function update(elapsed:Float):Void
 	{
-		
-		
 		for (touch in FlxG.touches.list)
 		{
 			if (touch.justPressed) 
@@ -219,22 +208,16 @@ class Card extends FlxTypedGroup<FlxSprite>
 			_self_color = Math.floor(Math.random() * 2 +3);
 			flip_color = _self_color;
 			_AI_color = _self_color == 3 ? 4:3;
-			_mymark.x = _flip_card.x;
-			_mymark.y = _flip_card.y;
 		}
 		else
 		{
 			if (_side == 0)
 			{
 				flip_color = _self_color;
-				_mymark.x = _flip_card.x;
-			_mymark.y = _flip_card.y;
 			}
 			else 
 			{
 				flip_color = _AI_color;
-				_AImark.x = _flip_card.x;
-				_AImark.y = _flip_card.y;
 				
 			}
 		}
@@ -276,7 +259,8 @@ class Card extends FlxTypedGroup<FlxSprite>
 		if ( _check_point.length != 0)
 		{
 			_add_card = _arr[_check_point[0]];
-			FlxTween.tween(_add_card.scale, { x: 0 }, 0.2 / 2, { onComplete: add_turn,startDelay: 0.5 });
+			FlxTween.tween(_add_card.scale, { x: 0 }, 0.2 / 2, { onComplete: add_turn, startDelay: 0.5 } );
+			
 		}
 		else
 		{
@@ -297,7 +281,8 @@ class Card extends FlxTypedGroup<FlxSprite>
 		if ( _check_point.length != 0)
 		{
 			_add_card = _arr[_check_point[0]];
-			FlxTween.tween(_add_card.scale, { x: 0 }, 0.2 / 2, { onComplete: add_turn,startDelay: 0.1 });
+			FlxTween.tween(_add_card.scale, { x: 0 }, 0.2 / 2, { onComplete: add_turn, startDelay: 0.1 } );
+			
 		}
 		else
 		{
@@ -331,7 +316,7 @@ class Card extends FlxTypedGroup<FlxSprite>
 		{
 			//還原成mark
 			_color[_check_point[0]] =-1;
-			card.loadGraphic(AssetPaths.Mark__png);
+			card.loadGraphic(AssetPaths.rock__png);
 		}
 		else card.loadGraphic("assets/images/Number_Blocks_01_Set_" + color + "_128x128_" + num + ".png");
 	}
@@ -350,7 +335,7 @@ class Card extends FlxTypedGroup<FlxSprite>
 		}
 		if ( type == 1)
 		{
-		  card.loadGraphic(AssetPaths.Mark__png);
+		  card.loadGraphic(AssetPaths.rock__png);
 		  arr.push(-1);
 		  arr.push(-1);
 		  return [ -1, -1];// arr;
