@@ -43,7 +43,7 @@ class Prob_panel extends FlxTypedGroup<FlxSprite>
 		_prob_text = new FlxGroup();
 		creat_prob_amount(400, 90, _prob_text);
 		
-		_del = new FlxText(450, 90, 170, "", 70, true);
+		_del = new FlxText(470, 90, 170, "", 70, true);
 		Model.font_format(_del, 70, FlxColor.WHITE, "center");
 		_del.text = ":";
 		//Model.font_Chinese_format(text, 24, FlxColor.WHITE, "left");
@@ -175,7 +175,7 @@ class Prob_panel extends FlxTypedGroup<FlxSprite>
 		for (i in 0...(_amount))
 		{
 			var p:Point = RegularSetting.row_po(i, 10);
-			var x:Float = _x+ (p.x *100);			
+			var x:Float = _x+ (p.x *135);			
 			var y:Float = _y+ (p.y *34);
 			
 			var text = new FlxText(x, y, 170, "", 70, true);
