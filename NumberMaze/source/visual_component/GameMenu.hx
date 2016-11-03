@@ -50,13 +50,15 @@ class GameMenu extends FlxTypedGroup<FlxSprite>
 		{
 			var p:Point = RegularSetting.col_position(i, 3);
 			
-			var x:Float = 300 + (p.x * 300);		
-			var y:Float = 300 + (p.y * 80);
+			var x:Float = 400 + (p.x * 300);		
+			var y:Float = 600 + (p.y * 300);
 			
 			var btn:FlxButton = create_flxbut(x, y, name[i], func[i]);
 			btn.loadGraphic(AssetPaths.MenuButton__png,true,260,74);
 			btn.animation.frameIndex = 0;
-			Model.font_format(btn.label, 35);
+			Model.font_format(btn.label, 50);
+			btn.scale.x = 3;
+			btn.scale.y = 3;
 			add(btn);
 		}
 		

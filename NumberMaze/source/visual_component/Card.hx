@@ -24,6 +24,8 @@ class Card extends FlxTypedGroup<FlxSprite>
 	private var _flip_Number:Int;
 	
 	private var _AI_pick:Int;
+	private var _unpick:Array<Int>;
+	private var _AI_color:Int;
 	
 	private var _add_card:FlxExtendedSprite;
 	
@@ -40,8 +42,6 @@ class Card extends FlxTypedGroup<FlxSprite>
 	private var _first_hand:Bool = true;
 	private var _first_chose:Bool = true;
 	private var _self_color:Int;
-	private var _AI_color:Int;
-	private var _unpick:Array<Int>;
 	
 	//0 = self ,1 = AI
 	private var _side:Int = 0;
@@ -112,19 +112,22 @@ class Card extends FlxTypedGroup<FlxSprite>
 			_side = s[1];
 			if ( _side == 1) 
 			{
-				_AI_pick = Math.ceil(Math.random() * _unpick.length);
+				_AI_pick = Math.floor(Math.random() * _unpick.length);
+				_AI_pick = _unpick[_AI_pick];
 				while (_color[_AI_pick] != -1)
 				{
-					_AI_pick = Math.ceil(Math.random() * _unpick.length);
+					
+					_AI_pick = Math.floor(Math.random() * _unpick.length);
+					_AI_pick = _unpick[_AI_pick];
+					
 				}
-				
 				//玩家完換AI,_CanFlip 一直= FALSE
 				FlxTween.tween(this, {  }, Math.ceil(Math.random()*3), { onComplete: AIpick });
 				
 			}
 			else
 			{
-				FlxG.log.add("---------------- left");
+				//FlxG.log.add("---------------- left");
 				_CanFlip = true;
 				
 			}
@@ -191,8 +194,9 @@ class Card extends FlxTypedGroup<FlxSprite>
 	{
 		if (_color[card.ID] != -1) return;
 		
+		//unpick 減少
 		var idx:Int = _unpick.indexOf(card.ID);
-		_unpick.remove(idx);
+		_unpick.remove(card.ID);
 		
 		_CanFlip = false;
 		_flip_card = card;
@@ -243,7 +247,7 @@ class Card extends FlxTypedGroup<FlxSprite>
 		//翻完CHECK
 		_check_point = rule_check(_flip_idx);
 		
-		FlxG.log.add(_check_point);
+		//FlxG.log.add(_check_point);
 		
 		
 		var updatelist:Array<Int> = new Array<Int>();
@@ -260,13 +264,12 @@ class Card extends FlxTypedGroup<FlxSprite>
 		{
 			_add_card = _arr[_check_point[0]];
 			FlxTween.tween(_add_card.scale, { x: 0 }, 0.2 / 2, { onComplete: add_turn, startDelay: 0.5 } );
-			
 		}
 		else
 		{
 			sum();
 			Main._model.probNotify.dispatch(["update_vale", _green_total,_blue_total]);
-			Main._model.StaticNotify.dispatch(["Flip_over",_green_total,_blue_total]);
+			Main._model.StaticNotify.dispatch(["Flip_over", _green_total, _blue_total]);
 		}
 	}
 	
@@ -274,7 +277,9 @@ class Card extends FlxTypedGroup<FlxSprite>
 	{
 		calculat_add(_add_card, 0);
 		FlxTween.tween(_add_card.scale, { x: 1 }, 0.2 / 2);
+		
 		_check_point.shift();
+		
 		
 		FlxG.sound.play("KK");
 		
@@ -282,13 +287,14 @@ class Card extends FlxTypedGroup<FlxSprite>
 		{
 			_add_card = _arr[_check_point[0]];
 			FlxTween.tween(_add_card.scale, { x: 0 }, 0.2 / 2, { onComplete: add_turn, startDelay: 0.1 } );
-			
+			FlxG.log.add("end = "+_unpick);
 		}
 		else
 		{
 			sum();
 			Main._model.probNotify.dispatch(["update_vale", _green_total,_blue_total]);
-			Main._model.StaticNotify.dispatch(["Flip_over",_green_total,_blue_total]);
+			Main._model.StaticNotify.dispatch(["Flip_over", _green_total, _blue_total]);
+			
 		}
 	}
 	
@@ -317,8 +323,19 @@ class Card extends FlxTypedGroup<FlxSprite>
 			//還原成mark
 			_color[_check_point[0]] =-1;
 			card.loadGraphic(AssetPaths.rock__png);
+			
+			//unpick 加回去
+			_unpick.push(_check_point[0]);
+			FlxG.log.add(" add push = "+_check_point[0]);
 		}
-		else card.loadGraphic("assets/images/Number_Blocks_01_Set_" + color + "_128x128_" + num + ".png");
+		else 
+		{
+			card.loadGraphic("assets/images/Number_Blocks_01_Set_" + color + "_128x128_" + num + ".png");
+			
+			var idx:Int = _unpick.indexOf(_check_point[0]);
+			_unpick.remove(_check_point[0]);
+			
+		}
 	}
 	
 	private function gernerate_way(card:FlxExtendedSprite,type:Int,open_color:Int):Array<Int>
