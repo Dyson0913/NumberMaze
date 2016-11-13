@@ -8,6 +8,7 @@
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
 	
+	<certificate path="assets/NumberMaze.keystore" alias="Dyson" password="0919836315" if="android" unless="debug"/>
 	
 	<!--Minimum without FLX_NO_GAMEPAD: 11.8, without FLX_NO_NATIVE_CURSOR: 11.2-->
 	<set name="SWF_VERSION" value="11.8" />
@@ -99,4 +100,5 @@
 	<!-- _________________________________ Custom _______________________________ -->
 	<android target-sdk-version="19" if="android" />
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
+	<icon path="assets/images/appicon.png" />
 </project>
