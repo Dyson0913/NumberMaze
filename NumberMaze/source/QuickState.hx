@@ -26,6 +26,10 @@ import flixel.util.FlxColor;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
 
+import flixel.util.FlxColor;
+import flixel.math.FlxPoint;
+import flixel.addons.transition.TransitionData;
+
 import model.RegularSetting;
 import model.Model;
 import openfl.Assets;
@@ -38,7 +42,9 @@ import extension.admob.AdMobListener;
 import extension.admob.AdMobGravity;
 #end
 
-class QuickState extends FlxState
+import flixel.addons.transition.FlxTransitionableState;
+
+class QuickState extends FlxTransitionableState
 {
 	private var _card:Card;
 	private var _timer:Timer;
@@ -51,8 +57,11 @@ class QuickState extends FlxState
 	private var _gameinput:GameInput;
 	
 	private var _singleplayer:FlxButton;
+	
+	private var _gameMenu:GameMenu;
+	
 	#if (flash )
-	private var _file:FileStream;
+	//private var _file:FileStream;
 	#end
 	
 	public var _bannerId:String = "ca-app-pub-2343865627432036/8188357502";
@@ -60,6 +69,7 @@ class QuickState extends FlxState
 	override public function create():Void
 	{
 		super.create();
+		
 		
 		_adjust = new Adjust_tool();
 		
@@ -116,8 +126,41 @@ class QuickState extends FlxState
 		#if admobads
 		samcode();
 		#end
+		
+		Main._model.GameOverNotify.add(Gameover);
+		
+		
 	}
 	
+	override public function destroy():Void 
+	{
+		Main._model.GameOverNotify.remove(Gameover);
+		_static.destroy();
+		_bar.destroy();
+		_card.destroy();
+	}
+	
+	private function Gameover(s:Dynamic):Void
+	{
+		_gameMenu = new GameMenu();
+		_gameMenu.set_text(["playAgain", "Menu"], [this.playerAgain, this.backMenu]);
+		_gameMenu.init();
+		add(_gameMenu);
+		
+	}
+	
+	private function playerAgain():Void
+	{
+		FlxG.resetState();
+	}
+	
+	private function backMenu():Void
+	{
+		var fanin:TransitionData = new TransitionData(TransitionType.FADE, FlxColor.BLACK, 1.5,new FlxPoint(1,0));
+		var fanout:TransitionData = new TransitionData(TransitionType.FADE, FlxColor.BLACK, 1.5,new FlxPoint(1,0));
+		
+		FlxG.switchState(new MenuState(fanin,fanout));
+	}
 	
 	private function samcode():Void
 	{
@@ -161,14 +204,14 @@ class QuickState extends FlxState
 		}
 		
 		#if (flash )
-		_file.save(Main._model._po_info.join('\n'), "po.txt");
+		//_file.save(Main._model._po_info.join('\n'), "po.txt");
 		#end
 		
 	}
 	
 	public function appear(s:Dynamic):Void
 	{
-		add(_timer);
+		//add(_timer);
 	}
 	
 	public function recode_info(s:Dynamic):Void

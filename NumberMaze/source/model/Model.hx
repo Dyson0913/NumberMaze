@@ -77,7 +77,7 @@ class Model extends FlxObject
 	public var probNotify = new Signal<Dynamic>();
 	public var StaticNotify = new Signal<Dynamic>();
 	public var TurnOverNotify = new Signal<Dynamic>();
-	
+	public var GameOverNotify = new Signal<Dynamic>();
 	//for test
 	public var _packlist:Array<String> = new Array();
 	public var _packlist_idx:Int = 0;

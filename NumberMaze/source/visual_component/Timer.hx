@@ -52,7 +52,7 @@ class Timer extends FlxTypedGroup<FlxSprite>
 	{
 		//Std.parseInt
 		Main._model._remain_time = 60;
-		_timer.start(1, timer_count, Main._model._remain_time);
+		//_timer.start(1, timer_count, Main._model._remain_time);
 	}
 	
 	private function disappear(s:Dynamic):Void

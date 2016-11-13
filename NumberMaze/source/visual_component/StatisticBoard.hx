@@ -35,25 +35,14 @@ class StatisticBoard extends FlxTypedGroup<FlxSprite>
 		
 		_flip_idx = 0;
 		
-		//event
-		Main._model.Menu.add(appear);
-		Main._model.playing.add(appear);
-		Main._model.Settle.add(disappear);
-		Main._model.credit.add(disappear);
-		
 		_frameSide = 0;
 		
 		Main._model.StaticNotify.add(notify);
 	}
 	
-	private function appear(s:Dynamic):Void
-	{		
-		
-	}
-	
-	private function disappear(s:Dynamic):Void
-	{		
-		
+	override public function destroy():Void 
+	{
+		Main._model.StaticNotify.remove(notify);
 	}
 	
 	private function notify(s:Dynamic):Void

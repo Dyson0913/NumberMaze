@@ -37,6 +37,7 @@ class Prob_panel extends FlxTypedGroup<FlxSprite>
 		
 		_amount = 2;
 		
+		
 		_prob_bar = new FlxGroup();
 		creat_prob_bar(28, 170, _prob_bar);
 		
@@ -72,6 +73,13 @@ class Prob_panel extends FlxTypedGroup<FlxSprite>
 	{
 		_prob_bar.kill();
 		_prob_text.kill();
+	}
+	
+	override public function destroy():Void 
+	{
+		//_mybar = null;
+		//_otherbar = null;
+		Main._model.probNotify.remove(prochange);
 	}
 	
 	public function prochange(s:Dynamic):Void

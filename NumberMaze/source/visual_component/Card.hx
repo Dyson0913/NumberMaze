@@ -32,7 +32,7 @@ class Card extends FlxTypedGroup<FlxSprite>
 	public var group( default, null ):FlxGroup;
 	public var _arr:Array<FlxExtendedSprite> = new Array<FlxExtendedSprite>();
 	
-	private var _amount:Int = 80;//130;
+	private var _amount:Int = 16;//80;
 	private var _RowCount:Int = 8;
 	private var _arrNumer:Array<Int>;
 	private var _color:Array<Int>;
@@ -93,11 +93,11 @@ class Card extends FlxTypedGroup<FlxSprite>
 		}
 		
 		//event
-		Main._model.Menu.add(appear);
-		Main._model.playing.add(appear);
-		Main._model.Settle.add(disappear);
-		Main._model.credit.add(disappear);
-		
+		//Main._model.Menu.add(appear);
+		//Main._model.playing.add(appear);
+		//Main._model.Settle.add(disappear);
+		//Main._model.credit.add(disappear);
+		//
 		disappear(1);
 		Main._model.TurnOverNotify.add(turnOver);
 		//Main._model.adjust_item.dispatch(_poker_mi_Target);
@@ -112,6 +112,11 @@ class Card extends FlxTypedGroup<FlxSprite>
 			_side = s[1];
 			if ( _side == 1) 
 			{
+				if ( isover() ) 
+				{
+					FlxG.log.add("----------------  over t");
+					return;
+				}
 				_AI_pick = Math.floor(Math.random() * _unpick.length);
 				_AI_pick = _unpick[_AI_pick];
 				while (_color[_AI_pick] != -1)
@@ -129,10 +134,28 @@ class Card extends FlxTypedGroup<FlxSprite>
 			{
 				//FlxG.log.add("---------------- left");
 				_CanFlip = true;
-				
+				if ( isover() ) return;
 			}
 		}
 		
+	}
+	
+	override public function destroy():Void 
+	{
+		Main._model.TurnOverNotify.remove(turnOver);
+	}
+	
+	public function isover():Bool
+	{
+		FlxG.log.add("---------------- unpick.lent"+_unpick.length);
+		if ( _unpick.length == 0)
+		{
+			FlxG.log.add("---------------- is over");
+			Main._model.GameOverNotify.dispatch(1);
+			
+			return true;
+		}
+		return false;
 	}
 	
 	private function AIpick(Tween:FlxTween):Void
