@@ -47,7 +47,7 @@ class Card extends FlxTypedGroup<FlxSprite>
 	private var _side:Int = 0;
 	
 	private var _green_total:Int;
-	private	var _blue_total:Int;
+	private var _blue_total:Int;
 	
 	public var effect_group:Array<FlxSprite> = new Array<FlxSprite>();
 	
@@ -101,6 +101,23 @@ class Card extends FlxTypedGroup<FlxSprite>
 		disappear(1);
 		Main._model.TurnOverNotify.add(turnOver);
 		//Main._model.adjust_item.dispatch(_poker_mi_Target);
+		
+	}
+	
+	public function judge():String
+	{
+		if ( _self_color == 3 )
+		{
+			if ( _green_total > _blue_total) return "win";
+			else if ( _green_total == _blue_total ) return "tie";
+			else return "lost";
+		}
+		else
+		{
+			if ( _green_total > _blue_total) return "lost";
+			else if ( _green_total == _blue_total ) return "tie";
+			else return "win";
+		}
 		
 	}
 	

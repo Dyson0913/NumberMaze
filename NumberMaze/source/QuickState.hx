@@ -60,6 +60,7 @@ class QuickState extends FlxTransitionableState
 	
 	private var _gameMenu:GameMenu;
 	
+	private var _settle:FlxExtendedSprite;
 	#if (flash )
 	//private var _file:FileStream;
 	#end
@@ -127,20 +128,45 @@ class QuickState extends FlxTransitionableState
 		samcode();
 		#end
 		
-		Main._model.GameOverNotify.add(Gameover);
+		Main._model.GameOverNotify.add(settle);
 		
 		
 	}
 	
 	override public function destroy():Void 
 	{
-		Main._model.GameOverNotify.remove(Gameover);
+		Main._model.GameOverNotify.remove(settle);
 		_static.destroy();
 		_bar.destroy();
 		_card.destroy();
 	}
 	
-	private function Gameover(s:Dynamic):Void
+	private function settle(s:Dynamic):Void
+	{
+		var res:String;
+		var result:String = _card.judge();
+		if ( result == "win" )
+		{
+			res = AssetPaths.you_win__png;
+		}
+		else if ( result == "tie" )
+		{
+			res = AssetPaths.Tie__png;
+		}
+		else
+		{
+			res = AssetPaths.you_lose__png;
+		}
+		
+		_settle = new FlxExtendedSprite(333 , 193);
+		_settle.loadGraphic(res);
+		add(_settle);
+		RegularSetting.set_debug(_settle);
+		
+		Gameover();
+	}
+	
+	private function Gameover():Void
 	{
 		_gameMenu = new GameMenu();
 		_gameMenu.set_text(["playAgain", "Menu"], [this.playerAgain, this.backMenu]);

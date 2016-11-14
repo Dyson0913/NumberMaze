@@ -31,12 +31,15 @@ class Prob_panel extends FlxTypedGroup<FlxSprite>
 	
 	private var _self_color:Int;
 	
+	private var _arr:Array<FlxText>;
+	
 	public function new() 
 	{
 		super();
 		
 		_amount = 2;
 		
+		_arr = new Array<FlxText>();
 		
 		_prob_bar = new FlxGroup();
 		creat_prob_bar(28, 170, _prob_bar);
@@ -93,11 +96,23 @@ class Prob_panel extends FlxTypedGroup<FlxSprite>
 			{
 				_mybar.createImageBar(null, AssetPaths.prob_green_bar__png);
 				_otherbar.createImageBar(null, AssetPaths.prob_blue_bar__png);
+				
+				var item:FlxText = cast(_arr[0], FlxText);
+				Model.font_format(item, 70, FlxColor.LIME, "center");
+				
+				item = cast(_arr[1], FlxText);
+				Model.font_format(item, 70, FlxColor.BLUE, "center");
 			}
 			else 
 			{
 				_mybar.createImageBar(null, AssetPaths.prob_blue_bar__png);
 				_otherbar.createImageBar(null, AssetPaths.prob_green_bar__png);
+				
+				var item:FlxText = cast(_arr[0], FlxText);
+				Model.font_format(item, 70, FlxColor.BLUE, "center");
+				
+				item = cast(_arr[1], FlxText);
+				Model.font_format(item, 70, FlxColor.LIME, "center");
 			}
 		}
 		else if ( order == "update_vale")
@@ -171,6 +186,7 @@ class Prob_panel extends FlxTypedGroup<FlxSprite>
 			var item:FlxText = cast(mem, FlxText);
 			var value:Int = Std.parseInt(data[i]);
 			//FlxG.log.add("-----------------"+value);
+			
 			item.text = data[i];
 			//FlxTween.tween(item, { text: value },  1 );
 			i++;
@@ -192,7 +208,7 @@ class Prob_panel extends FlxTypedGroup<FlxSprite>
 			//Model.font_Chinese_format(text, 24, FlxColor.WHITE, "left");
 			add(text);			
 			target.add(text);	
-			
+			_arr.push(text);
 		}
 	}
 	
