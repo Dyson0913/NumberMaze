@@ -173,6 +173,7 @@ class QuickState extends FlxTransitionableState
 		_gameMenu.init();
 		add(_gameMenu);
 		
+		
 	}
 	
 	private function playerAgain():Void

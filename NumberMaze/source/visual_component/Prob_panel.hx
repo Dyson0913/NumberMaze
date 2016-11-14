@@ -101,7 +101,7 @@ class Prob_panel extends FlxTypedGroup<FlxSprite>
 				Model.font_format(item, 70, FlxColor.LIME, "center");
 				
 				item = cast(_arr[1], FlxText);
-				Model.font_format(item, 70, FlxColor.BLUE, "center");
+				Model.font_format(item, 70, FlxColor.fromString('#1893e0'), "center");
 			}
 			else 
 			{
@@ -109,7 +109,7 @@ class Prob_panel extends FlxTypedGroup<FlxSprite>
 				_otherbar.createImageBar(null, AssetPaths.prob_green_bar__png);
 				
 				var item:FlxText = cast(_arr[0], FlxText);
-				Model.font_format(item, 70, FlxColor.BLUE, "center");
+				Model.font_format(item, 70, FlxColor.fromString('#1893e0'), "center");
 				
 				item = cast(_arr[1], FlxText);
 				Model.font_format(item, 70, FlxColor.LIME, "center");

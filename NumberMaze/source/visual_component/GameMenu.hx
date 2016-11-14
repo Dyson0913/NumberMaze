@@ -21,6 +21,9 @@ import flixel.util.FlxColor;
 import option.CharSelectState;
 import option.CreditState;
 
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+
 import model.Model;
 import model.RegularSetting;
 import flixel.addons.transition.Transition;
@@ -58,13 +61,15 @@ class GameMenu extends FlxTypedGroup<FlxSprite>
 			var x:Float = 400 + (p.x * 300);		
 			var y:Float = 600 + (p.y * 300);
 			
-			var btn:FlxButton = create_flxbut(x, y, name[i], func[i]);
+			var btn:FlxButton = create_flxbut( x,0, name[i], func[i]);
 			btn.loadGraphic(AssetPaths.MenuButton__png, true, 260, 74);
 			btn.animation.frameIndex = 0;
 			Model.font_format(btn.label, 50);
 			btn.scale.x = 3;
 			btn.scale.y = 3;
 			add(btn);
+			FlxTween.tween(btn, { y:y }, 2, { type: FlxTween.ONESHOT, ease:FlxEase.bounceOut } );
+		
 		}
 		
 
@@ -85,6 +90,7 @@ class GameMenu extends FlxTypedGroup<FlxSprite>
 		#if (flash )
 		//_file = new FileStream();
 		#end
+		
 		
 		//Main._model.adjust_item.dispatch(_credit);
 	}
