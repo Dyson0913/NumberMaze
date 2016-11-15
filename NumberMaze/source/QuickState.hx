@@ -170,7 +170,7 @@ class QuickState extends FlxTransitionableState
 	{
 		_gameMenu = new GameMenu();
 		_gameMenu.set_text(["playAgain", "Menu"], [this.playerAgain, this.backMenu]);
-		_gameMenu.init();
+		_gameMenu.init(400,600);
 		add(_gameMenu);
 		
 		

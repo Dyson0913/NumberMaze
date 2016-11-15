@@ -9,6 +9,7 @@ import flixel.math.FlxMath;
 import flixel.util.FlxColor;
 import flixel.math.FlxPoint;
 import flixel.addons.transition.TransitionData;
+import option.CreditState;
 
 import visual_component.GameInput;
 import visual_component.GameMenu;
@@ -30,8 +31,8 @@ class MenuState extends FlxTransitionableState
 		_adjust = new Adjust_tool();
 		
 		_gameMenu = new GameMenu();
-		_gameMenu.set_text(["singlePlay", "Multiplay", "Credit"], [this.singlplayer, this.multiplayer, this.credit]);
-		_gameMenu.init();
+		_gameMenu.set_text(["singlePlay", "Credit"], [this.singlplayer, this.credit]);
+		_gameMenu.init(400,600);
 		add(_gameMenu);
 		
 		_gameinput = new GameInput();
@@ -63,7 +64,7 @@ class MenuState extends FlxTransitionableState
 		var fanin:TransitionData = new TransitionData(TransitionType.FADE, FlxColor.BLACK, 1.5,new FlxPoint(1,0));
 		var fanout:TransitionData = new TransitionData(TransitionType.FADE, FlxColor.BLACK, 1.5,new FlxPoint(1,0));
 		
-		//FlxG.switchState(new CreditState(fanin,fanout));
+		FlxG.switchState(new CreditState(fanin,fanout));
 	}
 	
 	

@@ -52,14 +52,14 @@ class GameMenu extends FlxTypedGroup<FlxSprite>
 		func = fun;
 	}
 	
-	public function init():Void
+	public function init(x:Float = 0, y:Float =0 ):Void
 	{
 		for (i in 0...(name.length))
 		{
 			var p:Point = RegularSetting.col_position(i, 3);
 			
-			var x:Float = 400 + (p.x * 300);		
-			var y:Float = 600 + (p.y * 300);
+			var x:Float = x + (p.x * 300);		
+			var y:Float = y + (p.y * 300);
 			
 			var btn:FlxButton = create_flxbut( x,0, name[i], func[i]);
 			btn.loadGraphic(AssetPaths.MenuButton__png, true, 260, 74);
